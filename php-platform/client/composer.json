@@ -1,0 +1,15 @@
+{
+  "name": "php-platform-client",
+  "description": "Cliente para a plataforma PHP que se comunica com a API.",
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "guzzlehttp/guzzle": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Client\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
