@@ -4,28 +4,34 @@ require_once '../../models/Carrinho.php';
 
 $carrinho = new Carrinho();
 
+// Processar ações do carrinho
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['remover'])) {
-        $carrinho->remover($_POST['index']);
-    } elseif (isset($_POST['atualizar'])) {
-        // Implementar atualização de quantidades
+    if (isset($_POST['atualizar'])) {
+        $carrinho->atualizarQuantidade($_POST['item_id'], $_POST['quantidade']);
+    } elseif (isset($_POST['remover'])) {
+        $carrinho->remover($_POST['item_id']);
     }
+    header('Location: carrinho.php');
+    exit;
 }
+
+$itens = $carrinho->listar();
+$total = $carrinho->getTotal();
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Carrinho de Compras - <?php echo SITE_NAME; ?></title>
+    <title>Carrinho - <?php echo SITE_NAME; ?></title>
     <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Carrinho de Compras</h1>
+        <h1>Seu Carrinho</h1>
         
-        <?php if (empty($carrinho->getItens())): ?>
+        <?php if (empty($itens)): ?>
             <div class="alert alert-info">
-                Seu carrinho está vazio. <a href="produtos.php">Continue comprando</a>
+                Seu carrinho está vazio. <a href="produtos.php">Continuar Comprando</a>
             </div>
         <?php else: ?>
             <div class="table-responsive">
@@ -33,46 +39,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <thead>
                         <tr>
                             <th>Produto</th>
-                            <th>Opções</th>
-                            <th>Preview</th>
-                            <th>Quantidade</th>
                             <th>Preço</th>
-                            <th>Total</th>
+                            <th>Quantidade</th>
+                            <th>Subtotal</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($carrinho->getItens() as $index => $item): ?>
+                        <?php foreach ($itens as $index => $item): ?>
                         <tr>
                             <td><?php echo $item['nome']; ?></td>
-                            <td>
-                                <?php if (!empty($item['opcoes'])): ?>
-                                    <ul class="list-unstyled">
-                                        <?php foreach ($item['opcoes'] as $opcao): ?>
-                                            <li><?php echo $opcao['nome'] . ': ' . $opcao['valor']; ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <?php if ($item['design']): ?>
-                                    <img src="<?php echo $item['design']['preview']; ?>" 
-                                         alt="Preview" style="max-width: 100px;">
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <input type="number" name="quantidade" 
-                                       value="<?php echo $item['quantidade']; ?>" 
-                                       min="1" class="form-control" style="width: 80px;">
-                            </td>
                             <td>R$ <?php echo number_format($item['preco_unitario'], 2, ',', '.'); ?></td>
+                            <td>
+                                <form method="POST" style="display: inline;">
+                                    <input type="hidden" name="item_id" value="<?php echo $index; ?>">
+                                    <input type="number" name="quantidade" value="<?php echo $item['quantidade']; ?>" min="1" class="form-control" style="width: 80px;">
+                                    <button type="submit" name="atualizar" class="btn btn-primary btn-sm">Atualizar</button>
+                                </form>
+                            </td>
                             <td>R$ <?php echo number_format($item['preco_total'], 2, ',', '.'); ?></td>
                             <td>
                                 <form method="POST" style="display: inline;">
-                                    <input type="hidden" name="index" value="<?php echo $index; ?>">
-                                    <button type="submit" name="remover" class="btn btn-danger btn-sm">
-                                        Remover
-                                    </button>
+                                    <input type="hidden" name="item_id" value="<?php echo $index; ?>">
+                                    <button type="submit" name="remover" class="btn btn-danger btn-sm">Remover</button>
                                 </form>
                             </td>
                         </tr>
@@ -80,10 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5" class="text-right"><strong>Total:</strong></td>
-                            <td colspan="2">
-                                <strong>R$ <?php echo number_format($carrinho->getTotal(), 2, ',', '.'); ?></strong>
-                            </td>
+                            <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                            <td colspan="2"><strong>R$ <?php echo number_format($total, 2, ',', '.'); ?></strong></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -91,14 +78,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="row mt-4">
                 <div class="col-md-6">
-                    <a href="produtos.php" class="btn btn-secondary">
-                        Continuar Comprando
-                    </a>
+                    <a href="produtos.php" class="btn btn-secondary">Continuar Comprando</a>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="checkout.php" class="btn btn-primary btn-lg">
-                        Finalizar Compra
-                    </a>
+                    <a href="checkout.php" class="btn btn-primary btn-lg">Finalizar Compra</a>
                 </div>
             </div>
         <?php endif; ?>

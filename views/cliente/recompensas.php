@@ -71,3 +71,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resgatar'])) {
                                         Resgatar
                                     </button>
                                 </form>
+                            <?php else: ?>
+                                <button class="btn btn-secondary" disabled>
+                                    Pontos Insuficientes
+                                </button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        
+        <!-- Histórico de Resgates -->
+        <div class="mt-5">
+            <h2>Histórico de Resgates</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Recompensa</th>
+                        <th>Data</th>
+                        <th>Pontos</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($resgates as $resgate): ?>
+                        <tr>
+                            <td><?php echo $resgate['nome_recompensa']; ?></td>
+                            <td><?php echo date('d/m/Y', strtotime($resgate['data_resgate'])); ?></td>
+                            <td><?php echo $resgate['pontos']; ?></td>
+                            <td><?php echo $resgate['status']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
