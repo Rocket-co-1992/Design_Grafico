@@ -17,8 +17,18 @@ class Recompensa {
     }
     
     public function resgatar($cliente_id, $recompensa_id) {
+        if (!filter_var($cliente_id, FILTER_VALIDATE_INT) || !filter_var($recompensa_id, FILTER_VALIDATE_INT)) {
+            throw new Exception('Parâmetros inválidos');
+        }
+
         try {
             $this->db->beginTransaction();
+            
+            // Verifica bloqueios
+            $bloqueio = $this->verificarBloqueio($cliente_id, $recompensa_id);
+            if ($bloqueio) {
+                throw new Exception('Recompensa bloqueada: ' . $bloqueio['motivo']);
+            }
             
             // Verifica pontos disponíveis
             $pontos = $this->fidelidade->getPontos($cliente_id);
@@ -54,6 +64,9 @@ class Recompensa {
                 $stmt->execute([$recompensa_id]);
             }
             
+            // Registra log
+            $this->registrarLog($cliente_id, $recompensa_id, $recompensa['pontos_necessarios']);
+
             $this->db->commit();
             return true;
             
@@ -110,6 +123,50 @@ class Recompensa {
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$dataInicio, $dataFim]);
         return $stmt->fetchAll();
+    }
+
+    public function listarPorCategoria($categoria_id) {
+        $sql = "SELECT r.*, c.nome as categoria_nome 
+                FROM recompensas r
+                JOIN categorias_recompensa c ON r.categoria_id = c.id
+                WHERE r.categoria_id = ? AND r.ativo = TRUE
+                ORDER BY r.prioridade DESC, r.pontos_necessarios";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$categoria_id]);
+        return $stmt->fetchAll();
+    }
+    
+    public function verificarBloqueio($cliente_id, $recompensa_id) {
+        $sql = "SELECT * FROM bloqueios_recompensa 
+                WHERE cliente_id = ? AND recompensa_id = ?
+                AND (data_fim IS NULL OR data_fim > NOW())";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$cliente_id, $recompensa_id]);
+        return $stmt->fetch();
+    }
+    
+    public function getEstatisticasResgate($recompensa_id) {
+        $sql = "SELECT 
+                COUNT(*) as total_resgates,
+                AVG(DATEDIFF(data_uso, data_resgate)) as tempo_medio_uso,
+                COUNT(DISTINCT cliente_id) as clientes_unicos
+                FROM resgates 
+                WHERE recompensa_id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$recompensa_id]);
+        return $stmt->fetch();
+    }
+
+    private function registrarLog($cliente_id, $recompensa_id, $pontos) {
+        $sql = "INSERT INTO log_resgates (cliente_id, recompensa_id, pontos, ip) 
+                VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $cliente_id,
+            $recompensa_id,
+            $pontos,
+            $_SERVER['REMOTE_ADDR'] ?? null
+        ]);
     }
 }
 ?>

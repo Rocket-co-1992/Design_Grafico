@@ -78,7 +78,10 @@ class Fidelidade {
     }
     
     public function getPontos($cliente_id) {
-        $sql = "SELECT * FROM programa_fidelidade WHERE cliente_id = ?";
+        $sql = "SELECT 
+                COALESCE(SUM(CASE WHEN tipo = 'credito' THEN pontos ELSE -pontos END), 0) as pontos
+                FROM historico_pontos 
+                WHERE cliente_id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$cliente_id]);
         return $stmt->fetch();
@@ -147,6 +150,61 @@ class Fidelidade {
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$periodo]);
         return $stmt->fetchAll();
+    }
+
+    public function creditarPontos($cliente_id, $pontos, $motivo) {
+        return $this->registrarMovimentacao($cliente_id, $pontos, 'credito', $motivo);
+    }
+    
+    public function debitarPontos($cliente_id, $pontos, $motivo) {
+        $saldo = $this->getPontos($cliente_id);
+        if ($saldo['pontos'] < $pontos) {
+            throw new Exception('Saldo de pontos insuficiente');
+        }
+        return $this->registrarMovimentacao($cliente_id, $pontos, 'debito', $motivo);
+    }
+    
+    private function registrarMovimentacao($cliente_id, $pontos, $tipo, $motivo) {
+        $sql = "INSERT INTO historico_pontos 
+                (cliente_id, pontos, tipo, motivo) 
+                VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            $cliente_id,
+            $pontos,
+            $tipo,
+            $motivo
+        ]);
+    }
+
+    public function getHistorico($cliente_id) {
+        $sql = "SELECT * FROM historico_pontos 
+                WHERE cliente_id = ? 
+                ORDER BY data_movimento DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$cliente_id]);
+        return $stmt->fetchAll();
+    }
+    
+    public function calcularNivel($pontos) {
+        $niveis = [
+            'Bronze' => 0,
+            'Prata' => 1000,
+            'Ouro' => 5000,
+            'Platina' => 10000,
+            'Diamante' => 20000
+        ];
+        
+        $nivel_atual = 'Bronze';
+        foreach ($niveis as $nivel => $pontos_necessarios) {
+            if ($pontos >= $pontos_necessarios) {
+                $nivel_atual = $nivel;
+            } else {
+                break;
+            }
+        }
+        
+        return $nivel_atual;
     }
 }
 ?>

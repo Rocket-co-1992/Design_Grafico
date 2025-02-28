@@ -1,80 +1,103 @@
 <?php
 class Carrinho {
     private $db;
-    private $itens = [];
+    private $sessao_key = 'carrinho';
     
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
-        $this->inicializar();
-    }
-    
-    private function inicializar() {
-        if (!isset($_SESSION['carrinho'])) {
-            $_SESSION['carrinho'] = [];
+        if (!isset($_SESSION[$this->sessao_key])) {
+            $_SESSION[$this->sessao_key] = [];
         }
-        $this->itens = &$_SESSION['carrinho'];
     }
     
-    public function adicionar($produto_id, $quantidade, $opcoes = [], $design = null) {
+    public function adicionar($produto_id, $quantidade, $opcoes = []) {
         $produto = $this->getProduto($produto_id);
         if (!$produto) return false;
         
-        $preco_total = $produto['preco'];
-        foreach ($opcoes as $opcao) {
-            $preco_total += $this->getPrecoOpcao($opcao);
+        $preco = $this->calcularPreco($produto, $opcoes);
+        $key = $this->gerarKey($produto_id, $opcoes);
+        
+        if (isset($_SESSION[$this->sessao_key][$key])) {
+            $_SESSION[$this->sessao_key][$key]['quantidade'] += $quantidade;
+        } else {
+            $_SESSION[$this->sessao_key][$key] = [
+                'produto_id' => $produto_id,
+                'nome' => $produto['nome'],
+                'preco_unitario' => $preco,
+                'quantidade' => $quantidade,
+                'opcoes' => $opcoes
+            ];
         }
         
-        $item = [
-            'produto_id' => $produto_id,
-            'nome' => $produto['nome'],
-            'quantidade' => $quantidade,
-            'preco_unitario' => $preco_total,
-            'preco_total' => $preco_total * $quantidade,
-            'opcoes' => $opcoes,
-            'design' => $design
-        ];
-        
-        $this->itens[] = $item;
+        $this->atualizarPrecoTotal($key);
         return true;
     }
     
-    private function getProduto($id) {
-        $sql = "SELECT * FROM produtos WHERE id = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$id]);
-        return $stmt->fetch();
-    }
-    
-    private function getPrecoOpcao($opcao_id) {
-        $sql = "SELECT preco_adicional FROM produto_opcoes_valores WHERE id = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$opcao_id]);
-        $resultado = $stmt->fetch();
-        return $resultado ? $resultado['preco_adicional'] : 0;
-    }
-    
-    public function remover($index) {
-        if (isset($this->itens[$index])) {
-            unset($this->itens[$index]);
-            $this->itens = array_values($this->itens);
+    public function remover($key) {
+        if (isset($_SESSION[$this->sessao_key][$key])) {
+            unset($_SESSION[$this->sessao_key][$key]);
             return true;
         }
         return false;
     }
     
-    public function getTotal() {
-        return array_reduce($this->itens, function($total, $item) {
-            return $total + $item['preco_total'];
-        }, 0);
+    public function atualizarQuantidade($key, $quantidade) {
+        if (isset($_SESSION[$this->sessao_key][$key])) {
+            $_SESSION[$this->sessao_key][$key]['quantidade'] = max(1, $quantidade);
+            $this->atualizarPrecoTotal($key);
+            return true;
+        }
+        return false;
     }
     
-    public function getItens() {
-        return $this->itens;
+    public function listar() {
+        return $_SESSION[$this->sessao_key];
+    }
+    
+    public function getTotal() {
+        $total = 0;
+        foreach ($_SESSION[$this->sessao_key] as $item) {
+            $total += $item['preco_total'];
+        }
+        return $total;
+    }
+    
+    private function getProduto($id) {
+        $sql = "SELECT * FROM produtos WHERE id = ? AND ativo = TRUE";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+    
+    private function calcularPreco($produto, $opcoes) {
+        $preco = $produto['preco'];
+        
+        if (!empty($opcoes)) {
+            $sql = "SELECT preco_adicional 
+                    FROM produto_opcao_valores 
+                    WHERE id IN (" . implode(',', array_values($opcoes)) . ")";
+            $adicionais = $this->db->query($sql)->fetchAll();
+            
+            foreach ($adicionais as $adicional) {
+                $preco += $adicional['preco_adicional'];
+            }
+        }
+        
+        return $preco;
+    }
+    
+    private function gerarKey($produto_id, $opcoes) {
+        return $produto_id . '_' . md5(serialize($opcoes));
+    }
+    
+    private function atualizarPrecoTotal($key) {
+        $item = $_SESSION[$this->sessao_key][$key];
+        $_SESSION[$this->sessao_key][$key]['preco_total'] = 
+            $item['preco_unitario'] * $item['quantidade'];
     }
     
     public function limpar() {
-        $this->itens = [];
-        unset($_SESSION['carrinho']);
+        $_SESSION[$this->sessao_key] = [];
     }
 }
 ?>
