@@ -11,14 +11,6 @@
 ## Reportando uma Vulnerabilidade
 
 Se você descobrir uma vulnerabilidade de segurança, por favor:
-
-1. **NÃO** crie uma issue pública
-2. Envie um email para security@suagrafica.com.br com:
-   - Descrição detalhada da vulnerabilidade
-   - Passos para reprodução
-   - Possível impacto
-   - Sugestões de mitigação (se houver)
-
 ## Processo de Resposta
 
 Após receber um relato de vulnerabilidade:
