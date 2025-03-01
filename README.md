@@ -1,34 +1,6 @@
 # Sistema de Gestão para Gráfica Digital
 
 Sistema de gestão completo para gráficas digitais, incluindo orçamentação, gestão de produção, controle de qualidade e fidelização de clientes.
-
-## Estrutura do Projeto
-
-```
-/Design_Grafico/
-├── assets/
-│   ├── css/
-│   ├── js/
-│   └── img/
-├── config/
-│   └── config.php
-├── core/
-│   ├── Auth.php
-│   ├── Backup.php
-│   └── Logger.php
-├── models/
-│   ├── Configuracao.php
-│   └── OrcamentoGrafico.php
-├── views/
-│   └── configuracoes/
-│       └── sistema.php
-├── sql/
-│   └── database.sql
-└── .github/
-    └── workflows/
-        └── php.yml
-```
-
 ## Componentes Principais
 
 ### 1. Módulo de Orçamentação
@@ -107,22 +79,6 @@ cp config/config.example.php config/config.php
 ```bash
 composer install
 ```
-
-## Contribuição
-
-1. Fork o projeto
-2. Crie sua Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a Branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE.md](LICENSE.md) para detalhes.
-
-## Suporte
-
-Para suporte, envie um email para suporte@grafica.com ou abra uma issue no GitHub.
 
 ## Changelog
 
