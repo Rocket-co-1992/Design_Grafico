@@ -203,6 +203,10 @@ composer install
 - Controle de sessão
 - Logs de auditoria
 
+## Estatísticas do Projeto
+Total de linhas de código: 5214
+and counting...
+
 ## Changelog
 
 ### [1.1.0] - 2024-02-01
