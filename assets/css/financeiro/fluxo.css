@@ -1,0 +1,79 @@
+.fluxo-container {
+    padding: 1.5rem;
+}
+
+.saldo-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.saldo-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.saldo-card h3 {
+    color: var(--gray);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.saldo-card .valor {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.saldo-card.entrada .valor { color: var(--success); }
+.saldo-card.saida .valor { color: var(--danger); }
+.saldo-card.saldo .valor.positivo { color: var(--success); }
+.saldo-card.saldo .valor.negativo { color: var(--danger); }
+
+.comparativo {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.fluxo-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.grafico-fluxo {
+    padding: 1.5rem;
+    height: 400px;
+}
+
+.movimentacoes-lista {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.movimentacao-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.movimentacao-item:last-child {
+    border-bottom: none;
+}
+
+.mov-data {
+    color: var(--gray);
+    font-size: 0.875rem;
+}
+
+.mov-valor {
+    font-weight: 500;
+}
+
+.tipo-entrada .mov-valor { color: var(--success); }
+.tipo-saida .mov-valor { color: var(--danger); }

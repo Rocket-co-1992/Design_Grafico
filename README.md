@@ -45,7 +45,7 @@ Sistema de gestão completo para gráficas digitais, incluindo orçamentação, 
 - MySQL 5.7+
 - HTML5/CSS3
 - JavaScript
-- Bootstrap 5
+- CSS puro
 
 ## Requisitos do Sistema
 
@@ -73,11 +73,6 @@ mysql -u root -p < sql/database.sql
 3. Configure o arquivo de ambiente
 ```bash
 cp config/config.example.php config/config.php
-```
-
-4. Instale as dependências
-```bash
-composer install
 ```
 
 ## Changelog

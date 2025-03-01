@@ -1,0 +1,79 @@
+.vendas-dashboard {
+    padding: 1.5rem;
+}
+
+.metricas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.metrica-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.metrica-icon {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.metrica-info {
+    flex: 1;
+}
+
+.metrica-info .valor {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.metrica-info .label {
+    color: var(--gray);
+    font-size: 0.875rem;
+}
+
+.variacao {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.variacao.positiva { background: var(--success); color: white; }
+.variacao.negativa { background: var(--danger); color: white; }
+
+.vendas-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.ranking-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.barra-progresso {
+    flex: 0 0 100%;
+    height: 4px;
+    background: var(--gray-light);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.barra-progresso .progresso {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}

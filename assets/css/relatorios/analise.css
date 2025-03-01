@@ -1,0 +1,108 @@
+.analise-container {
+    padding: 1.5rem;
+}
+
+.filtros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    align-items: end;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.analise-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.metricas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.metrica-card {
+    padding: 1rem;
+    background: var(--gray-light);
+    border-radius: 8px;
+}
+
+.metrica-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.metrica-info {
+    color: var(--gray);
+    cursor: help;
+}
+
+.metrica-valor {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.metrica-valor.success { color: var(--success); }
+.metrica-valor.warning { color: var(--warning); }
+.metrica-valor.danger { color: var(--danger); }
+
+.metrica-comparativo {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.variacao {
+    font-weight: 500;
+    padding: 0.125rem 0.375rem;
+    border-radius: 12px;
+}
+
+.variacao.positiva { background: var(--success); color: white; }
+.variacao.negativa { background: var(--danger); color: white; }
+
+.graficos-container {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.grafico-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.grafico-controles {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.grafico-area {
+    height: 300px;
+    padding: 1rem 0;
+}
+
+.tabela-analise .table td {
+    white-space: nowrap;
+}
+
+.table td.highlight {
+    font-weight: 500;
+    background: rgba(52, 152, 219, 0.1);
+}
+
+@media (max-width: 1024px) {
+    .analise-grid {
+        grid-template-columns: 1fr;
+    }
+}

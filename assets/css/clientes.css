@@ -1,0 +1,80 @@
+.cliente-container {
+    padding: 1.5rem;
+}
+
+.cliente-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-grupo {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.info-grupo label {
+    color: var(--gray);
+    font-weight: 500;
+}
+
+.pontos-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.pontos-atuais {
+    text-align: center;
+}
+
+.pontos-atuais .numero {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    display: block;
+}
+
+.pontos-atuais .label {
+    color: var(--gray);
+    font-size: 0.875rem;
+}
+
+.nivel-atual .badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.nivel-bronze { background: #cd7f32; color: white; }
+.nivel-prata { background: #c0c0c0; color: black; }
+.nivel-ouro { background: #ffd700; color: black; }
+.nivel-platina { background: #e5e4e2; color: black; }
+
+.barra-progresso {
+    height: 8px;
+    background: var(--gray-light);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.barra-progresso .progresso {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.meta {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.historico-pedidos {
+    margin-top: 1.5rem;
+}

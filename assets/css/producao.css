@@ -1,0 +1,91 @@
+.ordem-producao {
+    padding: 1rem;
+}
+
+.ordem-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.ordem-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 1.5rem;
+}
+
+.ordem-detalhes {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.detalhes-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.detalhe-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detalhe-item label {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.etapas-timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.etapa-item {
+    position: relative;
+    padding: 1rem 0;
+    border-left: 2px solid var(--gray-light);
+}
+
+.status-marker {
+    position: absolute;
+    left: -0.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--gray-light);
+}
+
+.status-marker.concluida {
+    background: var(--success);
+}
+
+.etapa-conteudo {
+    background: white;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-left: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.etapa-info {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin: 0.5rem 0;
+}
+
+.prioridade {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.prioridade-alta { background: var(--danger); color: white; }
+.prioridade-media { background: var(--warning); color: black; }
+.prioridade-baixa { background: var(--success); color: white; }

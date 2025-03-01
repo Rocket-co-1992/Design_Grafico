@@ -1,0 +1,110 @@
+.inspecao-container {
+    padding: 1.5rem;
+}
+
+.inspecao-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.parametros-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.parametro-item {
+    background: var(--gray-light);
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.param-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.param-valores {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.valor-medido {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.valor-medido input {
+    width: 100px;
+    text-align: right;
+}
+
+.checklist-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 1rem 0;
+    border-left: 2px solid var(--gray-light);
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -0.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.timeline-content {
+    margin-left: 1rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.insp-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.help-tooltip {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--gray);
+    color: white;
+    font-size: 12px;
+    cursor: help;
+    margin-left: 0.5rem;
+}
+
+.status-conforme { color: var(--success); }
+.status-naoconforme { color: var(--danger); }
+.status-parcial { color: var(--warning); }
+
+.badge-danger {
+    background: var(--danger);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}

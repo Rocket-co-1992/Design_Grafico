@@ -5,18 +5,27 @@ class Database {
     
     private function __construct() {
         try {
+            $options = [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4",
+                PDO::ATTR_PERSISTENT => false,
+                PDO::MYSQL_ATTR_SSL_CA => "/path/to/ca.pem" // Se usar SSL
+            ];
+            
             $this->conn = new PDO(
-                "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8",
+                "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8mb4",
                 DB_USER,
                 DB_PASS,
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_EMULATE_PREPARES => false
-                ]
+                $options
             );
+            
+            // Desabilitar modo SQL
+            $this->conn->exec("SET sql_mode='STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE'");
         } catch (PDOException $e) {
-            die("Erro de conexão: " . $e->getMessage());
+            error_log("Erro de conexão DB: " . $e->getMessage());
+            throw new Exception("Erro ao conectar ao banco de dados");
         }
     }
     
@@ -36,5 +45,9 @@ class Database {
     
     // Prevent unserializing of the instance
     private function __wakeup() {}
+    
+    public function __destruct() {
+        $this->conn = null;
+    }
 }
 ?>

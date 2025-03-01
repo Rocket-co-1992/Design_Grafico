@@ -1,0 +1,119 @@
+.notificacoes-centro {
+    padding: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.notif-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.notif-acoes {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.notif-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.notif-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.notif-item:hover {
+    transform: translateY(-2px);
+}
+
+.notif-item.lida {
+    opacity: 0.7;
+    background: var(--gray-light);
+}
+
+.notif-icone {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.notif-item[data-tipo="pedido"] .notif-icone { background: var(--success); }
+.notif-item[data-tipo="producao"] .notif-icone { background: var(--primary); }
+.notif-item[data-tipo="qualidade"] .notif-icone { background: var(--warning); }
+.notif-item[data-tipo="sistema"] .notif-icone { background: var(--danger); }
+
+.notif-conteudo {
+    flex: 1;
+}
+
+.notif-titulo {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.notif-mensagem {
+    color: var(--gray);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.notif-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--gray);
+}
+
+.notif-link {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.notif-link:hover {
+    text-decoration: underline;
+}
+
+.notif-paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-light);
+}
+
+.pagina-info {
+    color: var(--gray);
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .notif-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .notif-acoes {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

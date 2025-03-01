@@ -1,0 +1,177 @@
+.equipamentos-status {
+    padding: 1.5rem;
+}
+
+.status-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.status-total {
+    text-align: center;
+    padding: 2rem;
+}
+
+.status-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray);
+}
+
+.status-header i {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.status-value {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 1rem 0;
+}
+
+.status-info {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 0.875rem;
+}
+
+.operacionais { color: var(--success); }
+.manutencao { color: var(--warning); }
+
+.producao-dados {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.dado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.dado .label {
+    color: var(--gray);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.dado .valor {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.manutencoes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.manutencao-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--gray-light);
+    border-radius: 4px;
+}
+
+.equipamento-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.equipamento-info .tipo {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.prazo.atrasado {
+    color: var(--danger);
+    font-weight: 500;
+}
+
+.equipamentos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.equipamento-card {
+    padding: 1.5rem;
+}
+
+.equipamento-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.equipamento-nome h3 {
+    margin: 0;
+    color: var(--primary);
+}
+
+.equipamento-nome .modelo {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-operacional { background: var(--success); color: white; }
+.status-manutencao { background: var(--warning); color: black; }
+.status-inativo { background: var(--danger); color: white; }
+
+.equipamento-metricas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.metrica {
+    text-align: center;
+}
+
+.metrica .label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--gray);
+    margin-bottom: 0.25rem;
+}
+
+.equipamento-grafico {
+    margin: 1.5rem 0;
+    height: 100px;
+}
+
+.equipamento-acoes {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-light);
+}
+
+@media (max-width: 768px) {
+    .status-overview {
+        grid-template-columns: 1fr;
+    }
+}

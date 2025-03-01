@@ -3,6 +3,7 @@ header('Content-Type: application/json');
 require_once '../config/config.php';
 require_once '../core/Database.php';
 require_once '../core/Auth.php';
+require_once '../core/RateLimit.php';
 
 // Tratamento de CORS
 header('Access-Control-Allow-Origin: *');
@@ -20,13 +21,43 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 // Autenticação via token
 function checkToken() {
-    $headers = apache_request_headers();
-    if (!isset($headers['Authorization'])) {
+    try {
+        $headers = apache_request_headers();
+        if (!isset($headers['Authorization'])) {
+            return false;
+        }
+        
+        $token = str_replace('Bearer ', '', $headers['Authorization']);
+        
+        // Verificar token no banco de dados
+        $db = Database::getInstance()->getConnection();
+        $stmt = $db->prepare("SELECT * FROM tokens WHERE token = ? AND expira > NOW()");
+        $stmt->execute([$token]);
+        
+        return $stmt->fetch() ? true : false;
+    } catch (Exception $e) {
         return false;
     }
-    $token = str_replace('Bearer ', '', $headers['Authorization']);
-    // Implementar validação do token
-    return true;
+}
+
+function sanitizeInput($data) {
+    if (is_array($data)) {
+        return array_map('sanitizeInput', $data);
+    }
+    return htmlspecialchars(strip_tags($data));
+}
+
+// Sanitizar todos os inputs
+$_GET = sanitizeInput($_GET);
+$_POST = sanitizeInput($_POST);
+$request = sanitizeInput($request);
+
+// Rate limiting
+$rateLimiter = new RateLimit();
+if (!$rateLimiter->check($_SERVER['REMOTE_ADDR'])) {
+    http_response_code(429);
+    echo json_encode(['erro' => 'Muitas requisições']);
+    exit;
 }
 
 // Roteamento da API

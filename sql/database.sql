@@ -536,3 +536,10 @@ CREATE TABLE kanban_checklist (
     ordem INT NOT NULL,
     FOREIGN KEY (cartao_id) REFERENCES kanban_cartoes(id)
 );
+
+CREATE TABLE rate_limits (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    ip VARCHAR(45) NOT NULL,
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_ip_timestamp (ip, timestamp)
+) ENGINE=InnoDB;

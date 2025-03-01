@@ -1,0 +1,159 @@
+.fidelidade-container {
+    padding: 1.5rem;
+}
+
+.nivel-status {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.nivel-info {
+    flex: 1;
+}
+
+.nivel-atual {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.nivel-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nivel-bronze { background: #cd7f32; color: white; }
+.nivel-prata { background: #c0c0c0; color: black; }
+.nivel-ouro { background: #ffd700; color: black; }
+.nivel-platina { background: #e5e4e2; color: black; }
+
+.pontos-total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.progresso-nivel {
+    width: 100%;
+    max-width: 400px;
+}
+
+.barra-progresso {
+    height: 8px;
+    background: var(--gray-light);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progresso {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.proxima-meta {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.beneficio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--gray-light);
+    border-radius: 8px;
+}
+
+.beneficio-item i {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.beneficio-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.beneficio-titulo {
+    font-weight: 500;
+}
+
+.beneficio-desc {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.historico-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.timeline-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.tipo-pedido { background: var(--primary); }
+.tipo-bonus { background: var(--success); }
+.tipo-resgate { background: var(--warning); }
+
+.registro-pontos.positivo { color: var(--success); }
+.registro-pontos.negativo { color: var(--danger); }
+
+.recompensas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.recompensa-card {
+    padding: 1.5rem;
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+}
+
+.recompensa-card.disponivel:hover {
+    transform: translateY(-2px);
+}
+
+.recompensa-card.bloqueada {
+    opacity: 0.7;
+}
+
+@media (max-width: 1024px) {
+    .nivel-status {
+        flex-direction: column;
+    }
+
+    .historico-grid {
+        grid-template-columns: 1fr;
+    }
+}

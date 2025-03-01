@@ -1,0 +1,110 @@
+.fornecedores-container {
+    padding: 1.5rem;
+}
+
+.filtros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    align-items: end;
+}
+
+.fornecedores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.fornecedor-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.fornecedor-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.cnpj {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+}
+
+.info-row .label {
+    color: var(--gray);
+    font-size: 0.875rem;
+}
+
+.historico-pagamentos {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-light);
+}
+
+.titulo-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.titulo-linha h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--gray);
+}
+
+.media-prazo {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.media-prazo.positivo { color: var(--success); }
+.media-prazo.negativo { color: var(--danger); }
+
+.mini-grafico {
+    height: 40px;
+    background: var(--gray-light);
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-light);
+}
+
+.btn-icon {
+    padding: 0.5rem;
+    color: var(--gray);
+}
+
+.btn-icon .icon-star.active {
+    color: var(--warning);
+}
+
+@media (max-width: 768px) {
+    .fornecedores-grid {
+        grid-template-columns: 1fr;
+    }
+}

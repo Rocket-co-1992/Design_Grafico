@@ -1,0 +1,124 @@
+.ordem-container {
+    padding: 1.5rem;
+}
+
+.ordem-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.ordem-titulo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ordem-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+}
+
+.info-grupo {
+    display: grid;
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.etapa-item {
+    position: relative;
+    padding: 1.5rem 0;
+}
+
+.status-marker {
+    position: absolute;
+    left: -2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--gray-light);
+    border: 2px solid white;
+    z-index: 1;
+}
+
+.status-line {
+    position: absolute;
+    left: -1.25rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gray-light);
+}
+
+.etapa-item.concluida .status-marker {
+    background: var(--success);
+}
+
+.etapa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.etapa-tempo {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.etapa-detalhes {
+    background: var(--gray-light);
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+}
+
+.checklist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.badge-danger {
+    background: var(--danger);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+
+.atrasado {
+    color: var(--danger);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .ordem-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ordem-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

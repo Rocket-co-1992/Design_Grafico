@@ -1,0 +1,72 @@
+.contas-container {
+    padding: 1.5rem;
+}
+
+.contas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.page-tabs {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    color: var(--gray);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.filtros-bar {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-grupo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contas-tabela {
+    overflow-x: auto;
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.status-pendente { background: var(--warning); color: black; }
+.status-pago { background: var(--success); color: white; }
+.status-atrasado { background: var(--danger); color: white; }
+
+tfoot {
+    font-weight: bold;
+    background: var(--gray-light);
+}

@@ -1,0 +1,113 @@
+.orcamento-avancado {
+    padding: 1.5rem;
+}
+
+.orcamento-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.configuracao-produto {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.acabamentos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.acabamento-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-custom {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.info-tooltip {
+    color: var(--gray);
+    cursor: help;
+    position: relative;
+}
+
+.preview-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.preview-container {
+    aspect-ratio: 1;
+    background: var(--gray-light);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.preview-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.quantidade-input {
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.input-group button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--gray-light);
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.input-group input {
+    width: 100px;
+    text-align: center;
+}
+
+.breakdowns {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.breakdown-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+@media (max-width: 1024px) {
+    .orcamento-grid {
+        grid-template-columns: 1fr;
+    }
+}
